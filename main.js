@@ -23,6 +23,11 @@ class Field{
 
     }
 
+    static generateField(){
+        
+    }
+}
+
     
 
 const myField = new Field([
