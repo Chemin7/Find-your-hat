@@ -21,11 +21,26 @@ class Field{
     }
 
     checkWin(){
-        
+        let {x,y} = this.user_location;
+        if(this.field[x][y] == hat){
+            console.log("You WIN!!");
+            return true;
+        }else{
+            return false;
+        }
     }
 
     checkLost(){
-
+        let {x,y} = this.user_location;
+        let row_length = this.field.length;
+        let column_length = this.field[0].length;
+        console.log("X: ",x ," Y: ",y)
+        if(x < 0 || x >= row_length || y < 0 || y >= column_length || this.field[x][y] == hole){
+            console.log("You Lose!!")
+            return true;
+        }else{
+            return false;
+        }
     }
 
     static generateField(){
@@ -33,9 +48,10 @@ class Field{
     }
 
     inputLoop(){
-        
-        while(this.checkLost() || this.checkWin){
+        let flag = true;
+        while(flag){
             console.clear()
+            
             this.print();
             let dir = prompt("Wich way? ");
 
@@ -53,8 +69,15 @@ class Field{
                     this.user_location.x += 1;
                     break;
             }
-            let {x,y} = this.user_location;
-            this.field[x][y] = pathCharacter;    
+            
+            if(this.checkLost() || this.checkWin()){
+                flag = false
+            }
+            else{
+                let {x,y} = this.user_location;
+                this.field[x][y] = pathCharacter;
+            }
+            
         }
         
     }
@@ -64,6 +87,7 @@ class Field{
 
 const myField = new Field([
     ['*', '░', 'O'],
+    ['░', 'O', '░'],
     ['░', 'O', '░'],
     ['░', '^', '░'],
   ]);
